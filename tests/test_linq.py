@@ -176,6 +176,16 @@ class LinqTests(unittest.TestCase):
         query = linq.groupby(lambda x: x**0)
         self.assertEqual(query.single(), (1, [1, 2, 3, 4]))
 
+    def test_reverse_1(self):
+        linq = Linq([1, 2, 3, 4])
+        query = linq.reverse()
+        self.assertEqual(query.tolist(), [4, 3, 2, 1])
+
+    def test_remove_all_1(self):
+        linq = Linq([1, 2, 3, 4])
+        query = linq.remove_all(lambda x: x > 2)
+        self.assertEqual(query.tolist(), [1, 2])
+
     def test_example_1(self):
         my_list = Linq([5, 1, 7, 2, 3, 10, 1, 4, 5])
 

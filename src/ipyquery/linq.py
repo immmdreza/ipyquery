@@ -230,3 +230,28 @@ class Linq:
             return result.first()
         else:
             return default
+
+    def add(self, item: Any):
+        self.__generator.append(item)
+        return self
+
+    def reverse(self):
+        self.__generator.reverse()
+        return self
+
+    def remove_all(self, operation: Callable[[Any], bool] = None):
+        if operation is None:
+            self.__generator.clear()
+
+        result = []
+        for x in self.__generator:
+            if operation(x):
+                continue
+            else:
+                result.append(x)
+        self.__generator = result
+        return self
+
+    def remove(self, item: Any):
+        self.__generator.remove(item)
+        return self
