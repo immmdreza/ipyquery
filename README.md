@@ -1,6 +1,8 @@
 # Linq for Python
 
 [![Upload Python Package](https://github.com/immmdreza/ipyquery/actions/workflows/upload_pypi.yml/badge.svg)](https://github.com/immmdreza/ipyquery/actions/workflows/upload_pypi.yml)
+[![pypi-badge]][pypi]
+[![license-badge]](LICENSE)
 
 [![Python application tests](https://github.com/immmdreza/ipyquery/actions/workflows/python-app.yml/badge.svg)](https://github.com/immmdreza/ipyquery/actions/workflows/python-app.yml)
 
@@ -71,3 +73,8 @@ Take a look at [tests](tests/test_linq.py) folder ( There are a lot to explore )
 - `remove_all`
 
 _Don't worry will add more methods._
+
+
+[pypi]: https://pypi.org/project/ipyquery/
+[pypi-badge]: https://badge.fury.io/py/ipyquery.svg
+[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
