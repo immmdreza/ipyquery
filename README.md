@@ -2,6 +2,8 @@
 
 [![Upload Python Package](https://github.com/immmdreza/ipyquery/actions/workflows/upload_pypi.yml/badge.svg)](https://github.com/immmdreza/ipyquery/actions/workflows/upload_pypi.yml)
 
+[![Python application tests](https://github.com/immmdreza/ipyquery/actions/workflows/python-app.yml/badge.svg)](https://github.com/immmdreza/ipyquery/actions/workflows/python-app.yml)
+
 ## What's that
 
 ### _Simple `Language integrated query` for Python_
