@@ -1,5 +1,7 @@
 # Linq for Python
 
+[![Upload Python Package](https://github.com/immmdreza/ipyquery/actions/workflows/upload_pypi.yml/badge.svg)](https://github.com/immmdreza/ipyquery/actions/workflows/upload_pypi.yml)
+
 ## What's that
 
 ### _Simple `Language integrated query` for Python_
