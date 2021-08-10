@@ -61,5 +61,9 @@ Take a look at [tests](tests/test_linq.py) folder ( There are a lot to explore )
 - `distinct`
 - `single`
 - `single_or_default`
+- `add`
+- `reverse`
+- `remove`
+- `remove_all`
 
 _Don't worry will add more methods._
