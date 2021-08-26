@@ -41,7 +41,7 @@ class Linq:
         if key is None:
             raise ValueError("key must not be None")
 
-        self.__generator = [key(x) for x in self.__generator]
+        self.__generator = list(map(key, self.__generator))
         return self
 
     def select_many(self, key: Callable[[Any], Iterable[Any]] = None):
@@ -134,35 +134,33 @@ class Linq:
         return self
 
     def where(self, operation: Callable[[Any], bool]):
-        self.__generator = [
-            x for x in self.__generator
-            if Linq.__check_operation(operation, x)
-        ]
+        if operation is None:
+            raise ValueError("Where what? fill parameters.")
+
+        self.__generator = list(filter(operation, self.__generator))
         return self
 
-    def first(self, operation: Callable[[Any], bool] = None):
-        for x in self.where(operation):
-            return x
-        raise Exception("Not Found!")
+    def element_at(self, index):
+        return self.__generator[index]
+
+    def first(self, operation: Callable[[Any], bool] = lambda _: True):
+        return self.where(operation).element_at(0)
 
     def first_or_default(self,
-                         operation: Callable[[Any], bool] = None,
+                         operation: Callable[[Any], bool] = lambda _: True,
                          default=None):
         for x in self.where(operation):
             return x
         return default
 
-    def any(self, operation: Callable[[Any], bool] = None):
-        for x in self.__generator:
-            if Linq.__check_operation(operation, x):
-                return True
-        return False
+    def any(self, operation: Callable[[Any], bool] = lambda _: True):
+        return any([operation(x) for x in self.__generator])
 
     def all(self, operation: Callable[[Any], bool] = None):
-        for x in self.__generator:
-            if not Linq.__check_operation(operation, x):
-                return False
-        return True
+        if operation is None:
+            raise ValueError('operation is required')
+
+        return all([operation(x) for x in self.__generator])
 
     def orderby(self, key: Callable[[Any], None] = None):
         self.__generator = sorted(self.__generator, key=key)
@@ -178,17 +176,10 @@ class Linq:
     def min(self, key: Callable[[Any], None] = None) -> Any:
         return min(self.__generator, key=key)
 
-    def sum(self, key: Callable[[Any], None] = None) -> int:
-        should_check = key is not None
-        sum = 0
-        for x in self.__generator:
-            if should_check:
-                sum += key(x)
-            else:
-                sum += x
-        return sum
+    def sum(self, key: Callable[[Any], None] = lambda _: _) -> int:
+        return sum(map(key, self.__generator))
 
-    def average(self, key: Callable[[Any], None] = None):
+    def average(self, key: Callable[[Any], None] = lambda _: _):
         sum = self.sum(key)
         return sum / len(self)
 
@@ -211,7 +202,7 @@ class Linq:
         self.__generator = result
         return self
 
-    def single(self, operation: Callable[[Any], bool] = None):
+    def single(self, operation: Callable[[Any], bool] = lambda _: True):
         result = self.where(operation)
         l = len(result)
         if l == 1:
@@ -222,7 +213,7 @@ class Linq:
             raise Exception("Sequence has more that one elements")
 
     def single_or_default(self,
-                          operation: Callable[[Any], bool] = None,
+                          operation: Callable[[Any], bool] = lambda _: True,
                           default=None):
         result = self.where(operation)
         l = len(result)
@@ -254,4 +245,12 @@ class Linq:
 
     def remove(self, item: Any):
         self.__generator.remove(item)
+        return self
+
+    def skip(self, count: int):
+        self.__generator = self.__generator[count:]
+        return self
+
+    def take(self, count: int):
+        self.__generator = self.__generator[:count]
         return self

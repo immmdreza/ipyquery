@@ -71,9 +71,10 @@ Take a look at [tests](tests/test_linq.py) folder ( There are a lot to explore )
 - `reverse`
 - `remove`
 - `remove_all`
+- `take` (_new_)
+- `skip` (_new_)
 
 _Don't worry will add more methods._
-
 
 [pypi]: https://pypi.org/project/ipyquery/
 [pypi-badge]: https://badge.fury.io/py/ipyquery.svg

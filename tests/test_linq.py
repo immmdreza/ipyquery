@@ -53,7 +53,8 @@ class LinqTests(unittest.TestCase):
 
     def test_any_3(self):
         linq = Linq([1, 2, 3, 4, 5, 6])
-        self.assertFalse(linq.where(lambda x: x > 6).any())
+        where = linq.where(lambda x: x > 6)
+        self.assertFalse(where.any())
 
     def test_all_1(self):
         linq = Linq([1, 2, 3, 4, 5, 6])
@@ -184,6 +185,16 @@ class LinqTests(unittest.TestCase):
     def test_remove_all_1(self):
         linq = Linq([1, 2, 3, 4])
         query = linq.remove_all(lambda x: x > 2)
+        self.assertEqual(query.tolist(), [1, 2])
+
+    def test_skip_1(self):
+        linq = Linq([1, 2, 3, 4])
+        query = linq.skip(2)
+        self.assertEqual(query.tolist(), [3, 4])
+
+    def test_take_1(self):
+        linq = Linq([1, 2, 3, 4])
+        query = linq.take(2)
         self.assertEqual(query.tolist(), [1, 2])
 
     def test_example_1(self):
